@@ -70,7 +70,7 @@ if "task" in st.session_state and "prompt" in st.session_state:
 			if st.session_state.tuner.number_of_cycles <= st.session_state.current_cycle:
 				st.session_state.tuning_complete = True
 				st.rerun()
-			with st.spinner(f"Running tuning cycle {st.session_state.current_cycle+1}..."):
+			with st.spinner(f"Running tuning cycle {st.session_state.current_cycle+1}/3..."):
 				st.session_state.tuner.generate_responses_from_prompt(st.session_state.current_cycle)
 				st.session_state.tuner.evaluate_responses(st.session_state.current_cycle)
 				st.session_state.tuner.tune_prompt(st.session_state.current_cycle)
