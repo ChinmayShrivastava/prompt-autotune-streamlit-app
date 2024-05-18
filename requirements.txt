@@ -56,7 +56,6 @@ openai==1.25.2
 packaging==24.0
 pandas==2.2.2
 pillow==10.3.0
-prompt_autotune @ file:///home/chinmay/Documents/Github/prompt-autotune-streamlit-app/prompt-autotune
 protobuf==4.25.3
 pyarrow==16.0.0
 pydantic==2.7.1

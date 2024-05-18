@@ -3,13 +3,23 @@ from prompt_autotune.TunePrompt import TunePrompt
 
 st.title("Prompt Autotune")
 
+st.write((
+	"Welcome to Prompt Autotune! This tool helps you auto tune your prompts for your prompting purposes. \n\n"
+))
+
+st.info((
+	"Please note that this is not a production ready tool and is still in development. "
+	"The tuned prompts should be considered as a starting point and should be further refined."
+), icon="ℹ️")
+
+
 if "task" not in st.session_state or "prompt" not in st.session_state:
 	with st.form("tune_prompt_form"):
 		st.write("### Enter the task you want to accomplish")
-		task = st.text_area("Task")
+		task = st.text_area("Task", placeholder="Describe what your final prompt should achieve or is trying to accomplish")
 
 		st.write("### Enter your initial prompt")
-		prompt = st.text_area("Prompt")
+		prompt = st.text_area("Prompt", placeholder="Write your initial prompt here")
 
 		submit_button = st.form_submit_button("Tune Prompt")
 
@@ -25,6 +35,7 @@ if "task" in st.session_state and "prompt" in st.session_state:
 	if "tuner" not in st.session_state:
 		with st.spinner("Generating synthetic examples..."):
 			st.session_state.tuner = TunePrompt(
+				openapi_key=st.secrets["OPENAI_API_KEY"],
 				task=st.session_state.task,
 				prompt=st.session_state.prompt,
 				verbose=False
