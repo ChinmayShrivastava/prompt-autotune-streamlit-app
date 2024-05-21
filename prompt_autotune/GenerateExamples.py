@@ -51,8 +51,16 @@ class GenerateExamples:
     def _parse_examples(self, response: str) -> List[Example]:
         examples = [e.strip() for e in response.split("---") if e.strip()]
         # each ecample is in the format: Example i\nINPUT: input\nOUTPUT: output, extract input and output
-        examples = [re.search(r"INPUT: (.*)\nOUTPUT: (.*)", e).groups() for e in examples]
-        return [Example(id=i, input=inp, output=out) for i, (inp, out) in enumerate(examples)]
+        _examples = []
+        for i, example in enumerate(examples):
+            # split by OUTPUT: 
+            input_output = example.split("OUTPUT:")
+            _output = input_output[1].strip()
+            # split by INPUT:
+            input_input = input_output[0].split("INPUT:")
+            _input = input_input[1].strip()
+            _examples.append((_input, _output))
+        return [Example(id=i, input=inp, output=out) for i, (inp, out) in enumerate(_examples)]
     
     def __str__(self) -> str:
         task_bit = self.task_description[:15] + "..." if len(self.task_description) > 15 else self.task_description
